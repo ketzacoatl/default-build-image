@@ -3,12 +3,24 @@ image: docker:latest
 stages:
   - build
 
-variables:
-    IMAGE:   "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}-${CI_PIPELINE_ID}"
 
-docker-build:
+stack-build-image:
   stage: build
   script:
-    - docker build --tag "${IMAGE}" .
+    - docker build --tag "${IMAGE}" stack-build
     - docker login -u gitlab-ci-token -p "${CI_BUILD_TOKEN}" "${CI_REGISTRY}"
     - docker push "${IMAGE}"
+  variables:
+    BASE:  "stack-build"
+    IMAGE: "${CI_REGISTRY_IMAGE}:${BASE}-${CI_COMMIT_REF_SLUG}-${CI_PIPELINE_ID}"
+
+
+alpine-image:
+  stage: build
+  script:
+    - docker build --tag "${IMAGE}" alpine
+    - docker login -u gitlab-ci-token -p "${CI_BUILD_TOKEN}" "${CI_REGISTRY}"
+    - docker push "${IMAGE}"
+  variables:
+    BASE:  "alpine"
+    IMAGE: "${CI_REGISTRY_IMAGE}:${BASE}-${CI_COMMIT_REF_SLUG}-${CI_PIPELINE_ID}"
