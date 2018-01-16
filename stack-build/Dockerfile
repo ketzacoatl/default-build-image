@@ -1,4 +1,4 @@
-FROM fpco/stack-build:lts-8.24
+FROM fpco/stack-build:lts-10.2
 
 # Install required Ubuntu packages
 RUN ( apt-get update ) \
