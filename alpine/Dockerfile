@@ -1,7 +1,8 @@
 FROM alpine
 
     # install common packages
-RUN apk add --no-cache wget ca-certificates unzip xz make perl build-base
+RUN ( apk add --no-cache wget ca-certificates unzip xz make perl build-base )
+
     # install stack, the haskell build tool
 RUN ( echo "http://dl-cdn.alpinelinux.org/alpine/v3.6/community" >> /etc/apk/repositories ) \
  && ( apk update ) \
@@ -10,12 +11,14 @@ RUN ( echo "http://dl-cdn.alpinelinux.org/alpine/v3.6/community" >> /etc/apk/rep
  && ( stack --version )
 
     # install the aws cli tools
-RUN apk  add --no-cache python3 py3-pip && \
-    pip3 install --upgrade pip && \
-    pip3 install awscli
+RUN ( apk  add --no-cache python3 py3-pip ) \
+ && ( pip3 install --upgrade pip ) \
+ && ( pip3 install awscli )
+
     # install terraform
-RUN wget  -O terraform.zip https://releases.hashicorp.com/terraform/0.11.2/terraform_0.11.2_linux_amd64.zip && \
-    unzip terraform.zip && \
-    mv terraform /usr/local/bin/terraform-0.11.2
+RUN ( wget  -O terraform.zip https://releases.hashicorp.com/terraform/0.11.2/terraform_0.11.2_linux_amd64.zip ) \
+ && ( unzip terraform.zip ) \
+ && ( mv terraform /usr/local/bin/terraform-0.11.2)
+
 RUN ls -Alh
 
