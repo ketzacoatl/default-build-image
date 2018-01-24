@@ -44,3 +44,16 @@ RUN ( curl -Lo /usr/local/bin/ops https://download.fpcomplete.com/ops/ops-v0.3.2
 RUN ( pip install mkdocs==0.16.3 mkdocs-cinder ) \
  && ( mkdocs --version )
 
+    # install terraform
+RUN ( wget  -O terraform.zip https://releases.hashicorp.com/terraform/0.11.2/terraform_0.11.2_linux_amd64.zip ) \
+ && ( unzip terraform.zip ) \
+ && ( mv terraform /usr/local/bin/terraform ) \
+ && ( terraform version ) \
+ && ( rm terraform.zip )
+
+    # install nomad
+RUN ( wget  -O nomad.zip https://releases.hashicorp.com/nomad/0.7.1/nomad_0.7.1_linux_amd64.zip ) \
+ && ( unzip nomad.zip ) \
+ && ( mv nomad /usr/local/bin/nomad ) \
+ && ( nomad version ) \
+ && ( rm nomad.zip )
