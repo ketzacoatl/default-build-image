@@ -18,7 +18,7 @@ RUN ( apk  add --no-cache python3 py3-pip ) \
     # install terraform
 RUN ( wget  -O terraform.zip https://releases.hashicorp.com/terraform/0.11.2/terraform_0.11.2_linux_amd64.zip ) \
  && ( unzip terraform.zip ) \
- && ( mv terraform /usr/local/bin/terraform-0.11.2 ) \
+ && ( mv terraform /usr/local/bin/terraform ) \
  && ( terraform version ) \
  && ( rm terraform.zip )
 
@@ -26,5 +26,6 @@ RUN ( wget  -O terraform.zip https://releases.hashicorp.com/terraform/0.11.2/ter
 RUN ( wget  -O nomad.zip https://releases.hashicorp.com/nomad/0.7.1/nomad_0.7.1_linux_amd64.zip ) \
  && ( unzip nomad.zip ) \
  && ( mv nomad /usr/local/bin/nomad ) \
- && ( nomad version ) \
+ && ( ls -Alh /usr/local/bin/nomad || true ) \
+ && ( nomad version || true ) \
  && ( rm nomad.zip )
